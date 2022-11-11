@@ -1,4 +1,4 @@
-import Box from "./Box";
+import Box from "../atoms/Box";
 import { View } from "react-native";
 import React from "react";
 
