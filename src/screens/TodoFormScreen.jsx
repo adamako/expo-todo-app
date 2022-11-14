@@ -2,10 +2,19 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { secondaryColor } from "../utils/color";
 import CustomButton from "../components/molecules/CustomButton";
 import { Fontisto } from "@expo/vector-icons";
+import { useContext } from "react";
+import { MainContext } from "../providers/MainProvider";
 
 const TodoFormScreen = () => {
+  const { isDark } = useContext(MainContext);
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDark ? "black" : "white" },
+      ]}
+    >
       <TextInput
         multiline={true}
         numberOfLines={10}
@@ -26,7 +35,6 @@ const TodoFormScreen = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: "white",
     flex: 1,
   },
   input: {

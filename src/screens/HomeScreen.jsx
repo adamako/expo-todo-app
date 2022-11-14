@@ -11,12 +11,21 @@ import {
 import { primaryColor, secondaryColor } from "../utils/color";
 import Header from "../components/molecules/Header";
 import CustomButton from "../components/molecules/CustomButton";
-import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 import { TodoItem } from "../components/molecules/TodoItem";
+import { useContext } from "react";
+import { MainContext } from "../providers/MainProvider";
 
 const HomeScreen = ({ navigation }) => {
+  const { isDark } = useContext(MainContext);
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDark ? "black" : "white" },
+      ]}
+    >
       <Header title="Todos" />
       <View style={styles.searchContainer}>
         <View style={styles.inputSection}>
@@ -31,7 +40,11 @@ const HomeScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => alert("filter")}>
           <Image
             source={require("../../assets/icons/filter-icon.png")}
-            style={{ height: 30, width: 31 }}
+            style={{
+              height: 30,
+              width: 31,
+              tintColor: isDark ? "white" : "black",
+            }}
           />
         </TouchableOpacity>
       </View>
@@ -67,7 +80,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "white",
   },
   title: {
     fontWeight: "700",
@@ -80,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   todosContainer: {
-    paddingTop: 10,
+    paddingTop: 20,
     flex: 1,
   },
   buttonContainer: {

@@ -5,19 +5,16 @@ import BoxContainer from "./src/components/molecules/BoxContainer";
 import HomeScreen from "./src/screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import MainStackNavigator from "./src/navigations/MainStackNavigator";
+import { MainProvider } from "./src/providers/MainProvider";
+import { Appearance } from "react-native";
 
 export default function App() {
+  const colorScheme = Appearance.getColorScheme();
   return (
-    <NavigationContainer>
-      <MainStackNavigator />
-    </NavigationContainer>
+    <MainProvider isDark={colorScheme === "dark"}>
+      <NavigationContainer>
+        <MainStackNavigator />
+      </NavigationContainer>
+    </MainProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 60,
-    flex: 1,
-    justifyContent: "space-evenly",
-  },
-});
