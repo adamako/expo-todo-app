@@ -1,15 +1,55 @@
-import { Button, StyleSheet, Text, View } from "react-native";
-import { primaryColor } from "../utils/color";
+import {
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { primaryColor, secondaryColor } from "../utils/color";
 import Header from "../components/molecules/Header";
 import CustomButton from "../components/molecules/CustomButton";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { TodoItem } from "../components/molecules/TodoItem";
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Header title="Todos" />
-      <View style={{ height: 100, backgroundColor: "red" }}></View>
-      <View style={styles.todosContainer}></View>
+      <View style={styles.searchContainer}>
+        <View style={styles.inputSection}>
+          <TextInput style={styles.input} placeholder={"rechercher"} />
+          <Feather
+            name="search"
+            size={20}
+            color={"black"}
+            style={{ opacity: 0.5 }}
+          />
+        </View>
+        <TouchableOpacity onPress={() => alert("filter")}>
+          <Image
+            source={require("../../assets/icons/filter-icon.png")}
+            style={{ height: 30, width: 31 }}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.todosContainer}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+        </ScrollView>
+      </View>
       <View style={styles.buttonContainer}>
         <CustomButton
           onPress={() => {
@@ -35,16 +75,31 @@ const styles = StyleSheet.create({
     color: primaryColor,
   },
   searchContainer: {
-    height: 100,
-    backgroundColor: "red",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   todosContainer: {
+    paddingTop: 10,
     flex: 1,
-    backgroundColor: "blue",
   },
   buttonContainer: {
     marginTop: 10,
     height: 100,
+  },
+  input: {
+    flex: 1,
+    fontSize: 15,
+  },
+  inputSection: {
+    width: "90%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    backgroundColor: secondaryColor,
+    height: 52,
+    padding: 10,
+    borderRadius: 10,
   },
 });
 

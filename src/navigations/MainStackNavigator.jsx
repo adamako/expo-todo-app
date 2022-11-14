@@ -7,14 +7,18 @@ const { Navigator, Screen } = createNativeStackNavigator();
 
 const MainStackNavigator = () => {
   return (
-    <Navigator initialRouteName={"HomeScreen"}>
+    <Navigator
+      initialRouteName={"HomeScreen"}
+      screenOptions={{
+        headerShadowVisible: false,
+      }}
+    >
       <Screen
         name={"HomeScreen"}
         options={{
           headerShown: false,
           headerTitle: "Todos",
           headerStyle: { backgroundColor: "white" },
-          headerShadowVisible: false,
           headerTitleAlign: "left",
           headerTitleStyle: {
             color: primaryColor,
@@ -24,7 +28,14 @@ const MainStackNavigator = () => {
         }}
         component={HomeScreen}
       />
-      <Screen name="TodoFormScreen" component={TodoFormScreen} />
+      <Screen
+        name="TodoFormScreen"
+        component={TodoFormScreen}
+        options={{
+          headerTitle: "Ajouter une todo",
+          headerBackTitleVisible: false,
+        }}
+      />
     </Navigator>
   );
 };
