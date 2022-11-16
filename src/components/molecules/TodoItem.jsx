@@ -1,15 +1,27 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
-import { secondaryColor, successColor } from "../../utils/color";
+import { errorColor, secondaryColor, successColor } from "../../utils/color";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export const TodoItem = () => {
+export const TodoItem = ({ todo }) => {
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: false,
+  };
+
   return (
     <TouchableOpacity onPress={() => alert("content")} style={styles.container}>
       <View style={styles.contentSection}>
         <Text style={styles.todoText} numberOfLines={2}>
-          Ma todo
+          {todo.name}
         </Text>
-        <Text style={styles.todoDate}>10/11/2022, 16:00</Text>
+        <Text style={styles.todoDate}>
+          {Intl.DateTimeFormat("default", options).format(todo.date)}
+        </Text>
       </View>
       <View style={styles.actionsSection}>
         <TouchableOpacity>
@@ -20,9 +32,13 @@ export const TodoItem = () => {
         </TouchableOpacity>
         <TouchableOpacity>
           <MaterialIcons
-            name="check-circle-outline"
+            name={
+              todo.isCompleted
+                ? "check-circle-outline"
+                : "radio-button-unchecked"
+            }
             size={37}
-            color={successColor}
+            color={todo.isCompleted ? successColor : "grey"}
           />
         </TouchableOpacity>
       </View>

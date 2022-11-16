@@ -1,12 +1,26 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { secondaryColor } from "../utils/color";
 import CustomButton from "../components/molecules/CustomButton";
 import { Fontisto } from "@expo/vector-icons";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { MainContext } from "../providers/MainProvider";
 
-const TodoFormScreen = () => {
-  const { isDark } = useContext(MainContext);
+const TodoFormScreen = ({ navigation }) => {
+  const { isDark, addTodo } = useContext(MainContext);
+  const [todoName, setTodoName] = useState("");
+
+  const handleTodo = () => {
+    if (todoName.length > 5) {
+      const newTodo = {
+        name: todoName,
+        date: Date.now(),
+        isCompleted: false,
+      };
+
+      addTodo(newTodo);
+      navigation.goBack();
+    }
+  };
 
   return (
     <View
@@ -16,6 +30,8 @@ const TodoFormScreen = () => {
       ]}
     >
       <TextInput
+        value={todoName}
+        onChangeText={setTodoName}
         multiline={true}
         numberOfLines={10}
         style={styles.input}
@@ -24,7 +40,7 @@ const TodoFormScreen = () => {
       <View style={{ marginTop: 50 }}>
         <CustomButton
           label={"Enregistrer"}
-          onPress={() => alert("Save succesfully")}
+          onPress={handleTodo}
           icon={<Fontisto name="save" size={24} color="white" />}
         />
       </View>

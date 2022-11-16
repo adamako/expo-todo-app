@@ -1,5 +1,6 @@
 import {
   Button,
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -17,7 +18,7 @@ import { useContext } from "react";
 import { MainContext } from "../providers/MainProvider";
 
 const HomeScreen = ({ navigation }) => {
-  const { isDark } = useContext(MainContext);
+  const { isDark, todos } = useContext(MainContext);
 
   return (
     <View
@@ -49,19 +50,10 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.todosContainer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-        </ScrollView>
+        <FlatList
+          data={todos}
+          renderItem={({ item }) => <TodoItem todo={item} />}
+        />
       </View>
       <View style={styles.buttonContainer}>
         <CustomButton
